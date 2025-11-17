@@ -10,7 +10,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String    @id @map("userId")
   name          String
   email         String
   emailVerified Boolean   @default(false)
@@ -25,7 +25,9 @@ model User {
   banReason  String?
   banExpires DateTime?
   
+  topics      Topic[]
   profile Profile?
+  comments    Comment[]
 
   @@unique([email])
   @@map("user")
@@ -92,4 +94,36 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
+  @@map("profile")
+}
+
+model Topic {
+  topicId String @id @default(uuid())
+  title String @db.VarChar(100)
+  description String
+  technologies String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+  
+  comments Comment[]
+  
+  @@map("topic")
+}
+
+model Comment {
+  id String @id @default(uuid())
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+  
+  topic Topic @relation(fields: [topicId], references: [topicId], onDelete: Cascade)
+  topicId String @unique
+  
+  @@map("comment")
 }
