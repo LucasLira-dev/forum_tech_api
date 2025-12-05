@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './lib/auth';
 import { TopicModule } from './topic/topic.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TopicModule } from './topic/topic.module';
     ProfileModule,
     UploadModule,
     TopicModule,
+    CommentsModule,
   ],
   controllers: [AppController, ProfileController],
   providers: [AppService, ProfileService, PrismaService],
