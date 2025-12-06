@@ -30,7 +30,7 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: ['http://localhost:3000', 'http://localhost:3001'],
-  plugins: [admin()],
+  plugins: [admin({ adminUserIds: ['akgx2kOFFFkywZFqWY8PGIVebnMK8PRA']})],
 });
 
 // npx @better-auth/cli migrate
