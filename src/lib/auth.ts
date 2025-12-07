@@ -29,8 +29,13 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  trustedOrigins: ['http://localhost:3000', 'http://localhost:3001'],
-  plugins: [admin({ adminUserIds: ['akgx2kOFFFkywZFqWY8PGIVebnMK8PRA']})],
+  trustedOrigins: [
+    'http://localhost:3000', 
+    'http://localhost:3001',
+    process.env.BETTER_AUTH_URL as string,
+    'https://forum-tech.vercel.app/'
+  ].filter(Boolean),
+  plugins: [admin({ adminUserIds: ['akgx2kOFFFkywZFqWY8PGIVebnMK8PRA'] })],
 });
 
 // npx @better-auth/cli migrate

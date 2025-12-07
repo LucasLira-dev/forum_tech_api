@@ -7,7 +7,10 @@ async function bootstrap() {
     bodyParser: false,
   });
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://forum-tech.vercel.app/',
+    ],
     credentials: true,
   });
   app.useGlobalPipes(new ValidationPipe());
