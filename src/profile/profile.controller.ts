@@ -17,7 +17,7 @@ import {
 } from '@thallesp/nestjs-better-auth';
 import { UpdateProfileDto } from './dtos/update-profile.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UploadService } from 'src/upload/upload.service';
+import { UploadService } from '../upload/upload.service';
 
 @Controller('profile')
 export class ProfileController {
