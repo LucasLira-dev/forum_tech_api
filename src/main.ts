@@ -11,10 +11,18 @@ async function bootstrap() {
   // Corrige o problema do 'state_mismatch'
   app.use((req, res, next) => {
     const origin = req.headers.origin;
+    
+    const allowedOrigins = [
+      'https://forum-tech.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:5173',
+    ];
 
     // Permite requisições SEM origin (ex: callback OAuth)
     if (!origin) {
       res.header('Access-Control-Allow-Origin', '*');
+    } else if (allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
     } else {
       res.header('Access-Control-Allow-Origin', origin);
     }
@@ -26,7 +34,7 @@ async function bootstrap() {
     );
     res.header(
       'Access-Control-Allow-Headers',
-      'Content-Type, Authorization',
+      'Content-Type, Authorization, Accept',
     );
 
     // Preflight rápido
@@ -39,8 +47,14 @@ async function bootstrap() {
 
   // CORS oficial do Nest (para requisições normais)
   app.enableCors({
-    origin: true, // permite qualquer origem válida
+    origin: [
+      'https://forum-tech.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:5173',
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   });
 
   app.useGlobalPipes(new ValidationPipe());
