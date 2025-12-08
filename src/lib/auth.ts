@@ -33,7 +33,8 @@ export const auth = betterAuth({
     'http://localhost:3000', 
     'http://localhost:3001',
     process.env.BETTER_AUTH_URL as string,
-    'https://forum-tech.vercel.app/'
+    'https://forum-tech.vercel.app',
+    process.env.FRONTEND_URL as string,
   ].filter(Boolean),
   plugins: [admin({ adminUserIds: ['akgx2kOFFFkywZFqWY8PGIVebnMK8PRA'] })],
 });
